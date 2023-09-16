@@ -26,6 +26,15 @@ const userSchema = new Mongoose.Schema({
   },
 });
 
+userSchema.set("toJSON", {
+  transform(doc: any, ret: any) {
+    ret.id = ret._id;
+    delete ret._id;
+    delete ret.password;
+    delete ret.__v;
+  },
+});
+
 userSchema.pre("save", async function (next) {
   try {
     if (this.isModified("password")) {
