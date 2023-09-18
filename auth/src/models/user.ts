@@ -18,11 +18,11 @@ interface UserDoc extends Mongoose.Document {
 const userSchema = new Mongoose.Schema({
   email: {
     type: String,
-    requird: true,
+    required: true,
   },
   password: {
     type: String,
-    requird: true,
+    required: true,
   },
 });
 
@@ -39,7 +39,7 @@ userSchema.pre("save", async function (next) {
   try {
     if (this.isModified("password")) {
       const salt = await bcrypt.genSalt(10);
-      this.password = (await bcrypt.hash(this.password as any, salt)) as any;
+      this.password = await bcrypt.hash(this.password, salt);
     }
     next();
   } catch (error) {
