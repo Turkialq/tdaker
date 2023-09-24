@@ -23,3 +23,11 @@ build:
         manual:
           - src: "**/*.ts"
             dest: .
+    - image: turkialq/ticketing
+      context: ticketing
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.ts"
+            dest: .
